@@ -1,32 +1,27 @@
 
-function delay(ms) {
+// Function to pause for some time
+function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function displayMessage() {
-  // Get user input values
-  let text = document.getElementById("text").value;
-  let delayTime = document.getElementById("delay").value;
+// Function to show message after delay
+async function showMessage() {
+  let message = document.getElementById("text").value;
+  let delayTime = Number(document.getElementById("delay").value);
 
-  // Convert delayTime to number
-  delayTime = Number(delayTime);
-
-  
-  if (!text) {
-    alert("Please enter a message.");
-    return;
-  }
-  if (!delayTime || delayTime < 0) {
-    alert("Please enter a valid delay time.");
+  if (!message) {
+    alert("Enter a message!");
     return;
   }
 
+  if (isNaN(delayTime) || delayTime < 0) {
+    alert("Enter a valid delay time!");
+    return;
+  }
 
-  await delay(delayTime);
-
-
-  document.getElementById("output").innerText = text;
+  await wait(delayTime); // Pause for the given time
+  document.getElementById("output").innerText = message; // Show the message
 }
 
-// Event listener for button click
-document.getElementById("btn").addEventListener("click", displayMessage);
+// Run showMessage() when button is clicked
+document.getElementById("btn").addEventListener("click", showMessage);
